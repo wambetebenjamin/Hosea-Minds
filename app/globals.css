@@ -1,0 +1,543 @@
+@import 'tailwindcss' source(none);
+
+@source '../app';
+@source '../components';
+@source '../lib';
+
+/* ==========================================================================
+   Hosea Minds design tokens.
+   The four custom properties below are reproduced verbatim from the uploaded
+   template stylesheet, dentcare-1.0.0/css/style.css.
+   ========================================================================== */
+:root {
+    --primary: #06A3DA;
+    --secondary: #F57E57;
+    --light: #EEF9FF;
+    --dark: #091E3E;
+}
+
+@theme inline {
+    --color-primary: var(--primary);
+    --color-secondary: var(--secondary);
+    --color-light: var(--light);
+    --color-dark: var(--dark);
+    --font-sans: 'Open Sans', ui-sans-serif, system-ui, -apple-system, 'Segoe UI', sans-serif;
+    --font-display: 'Jost', ui-sans-serif, system-ui, -apple-system, 'Segoe UI', sans-serif;
+}
+
+h1,
+h2,
+.font-weight-bold {
+    font-weight: 700 !important;
+}
+
+h3,
+h4,
+.font-weight-semi-bold {
+    font-weight: 600 !important;
+}
+
+h5,
+h6,
+.font-weight-medium {
+    font-weight: 500 !important;
+}
+
+h1,
+h2,
+h3,
+h4,
+h5,
+h6 {
+    font-family: 'Jost', ui-sans-serif, system-ui, sans-serif;
+    letter-spacing: -0.01em;
+}
+
+.btn {
+    font-family: 'Jost', sans-serif;
+    font-weight: 600;
+    transition: .5s;
+}
+
+.btn-primary,
+.btn-secondary {
+    color: #FFFFFF;
+}
+
+.btn-primary:hover {
+    background: var(--secondary);
+    border-color: var(--secondary);
+}
+
+.btn-secondary:hover {
+    background: var(--primary);
+    border-color: var(--primary);
+}
+
+.btn-square {
+    width: 36px;
+    height: 36px;
+}
+
+.btn-sm-square {
+    width: 28px;
+    height: 28px;
+}
+
+.btn-lg-square {
+    width: 46px;
+    height: 46px;
+}
+
+.btn-square,
+.btn-sm-square,
+.btn-lg-square {
+    padding-left: 0;
+    padding-right: 0;
+    text-align: center;
+}
+
+#spinner {
+    opacity: 0;
+    visibility: hidden;
+    transition: opacity .5s ease-out, visibility 0s linear .5s;
+    z-index: 99999;
+}
+
+#spinner.show {
+    transition: opacity .5s ease-out, visibility 0s linear 0s;
+    visibility: visible;
+    opacity: 1;
+}
+
+.back-to-top {
+    position: fixed;
+    display: none;
+    right: 45px;
+    bottom: 45px;
+    z-index: 99;
+}
+
+.top-shape::before {
+    position: absolute;
+    content: "";
+    width: 35px;
+    height: 100%;
+    top: 0;
+    left: -17px;
+    background: var(--primary);
+    transform: skew(40deg);
+}
+
+.section-title h5::before {
+    position: absolute;
+    content: "";
+    width: 45px;
+    height: 3px;
+    right: -55px;
+    bottom: 11px;
+    background: var(--primary);
+}
+
+.section-title h5::after {
+    position: absolute;
+    content: "";
+    width: 15px;
+    height: 3px;
+    right: -75px;
+    bottom: 11px;
+    background: var(--secondary);
+}
+
+.hero-header {
+    background: linear-gradient(rgba(9, 30, 62, .55), rgba(9, 30, 62, .55)), url(/images/hero-reflection.jpg) center center no-repeat;
+    background-size: cover;
+}
+
+.service-item img,
+.service-item .bg-light,
+.service-item .bg-light h5,
+.team-item .team-text {
+    transition: .5s;
+}
+
+.service-item:hover img {
+    transform: scale(1.15);
+}
+
+.team-item .team-text::after,
+.service-item .bg-light::after {
+    position: absolute;
+    content: "";
+    top: 50%;
+    bottom: 0;
+    left: 15px;
+    right: 15px;
+    border-radius: 100px / 15px;
+    box-shadow: 0 0 15px rgba(0, 0, 0, .7);
+    opacity: 0;
+    transition: .5s;
+    z-index: -1;
+}
+
+.team-item:hover .team-text::after,
+.service-item:hover .bg-light::after {
+    opacity: 1;
+}
+
+@media (max-width: 639px) {
+    .section-title h5::before,
+    .section-title h5::after {
+        display: none;
+    }
+}
+
+/* ==========================================================================
+   Base layer
+   ========================================================================== */
+@layer base {
+    html {
+        -webkit-text-size-adjust: 100%;
+    }
+
+    body {
+        background-color: #FFFFFF;
+        color: var(--dark);
+        font-family: 'Open Sans', ui-sans-serif, system-ui, sans-serif;
+        overflow-x: hidden;
+    }
+
+    input,
+    select,
+    textarea {
+        font-size: 16px;
+    }
+
+    :focus-visible {
+        outline: 2px solid var(--primary);
+        outline-offset: 2px;
+    }
+
+    ::selection {
+        background: var(--light);
+        color: var(--dark);
+    }
+}
+
+/* ==========================================================================
+   Shared component classes
+   ========================================================================== */
+.icon-tile {
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+    width: 56px;
+    height: 56px;
+    border-radius: 16px;
+    background: var(--light);
+    color: var(--primary);
+}
+
+.field {
+    width: 100%;
+    min-height: 44px;
+    border-radius: 12px;
+    border: 1px solid rgba(9, 30, 62, .14);
+    background: #FFFFFF;
+    padding: 0.75rem 1rem;
+    font-size: 16px;
+    color: var(--dark);
+    transition: border-color .3s ease, box-shadow .3s ease;
+}
+
+.field::placeholder {
+    color: rgba(9, 30, 62, .42);
+}
+
+.field:focus {
+    outline: none;
+    border-color: var(--primary);
+    box-shadow: 0 0 0 3px rgba(6, 163, 218, .16);
+}
+
+.field-label {
+    display: block;
+    font-family: 'Jost', sans-serif;
+    font-weight: 600;
+    font-size: 0.95rem;
+    color: var(--dark);
+    margin-bottom: 0.5rem;
+}
+
+.card-soft {
+    background: #FFFFFF;
+    border: 1px solid rgba(9, 30, 62, .08);
+    border-radius: 20px;
+    box-shadow: 0 16px 40px -32px rgba(9, 30, 62, .45);
+}
+
+.panel {
+    background: var(--light);
+    border-radius: 20px;
+}
+
+.link-underline {
+    text-decoration: underline;
+    text-underline-offset: 4px;
+    text-decoration-thickness: 1px;
+}
+
+.sr-only-focusable:not(:focus):not(:focus-within) {
+    position: absolute;
+    width: 1px;
+    height: 1px;
+    padding: 0;
+    margin: -1px;
+    overflow: hidden;
+    clip: rect(0, 0, 0, 0);
+    white-space: nowrap;
+    border: 0;
+}
+
+/* ==========================================================================
+   iOS safe area helpers
+   ========================================================================== */
+@supports (padding-bottom: env(safe-area-inset-bottom)) {
+    .pb-safe {
+        padding-bottom: calc(1rem + env(safe-area-inset-bottom));
+    }
+
+    .bottom-safe {
+        bottom: calc(1.5rem + env(safe-area-inset-bottom));
+    }
+}
+
+/* Floating actions step above the consent banner on small screens. */
+.bottom-safe {
+    transition: bottom .4s ease;
+}
+
+@media (max-width: 639px) {
+    .consent-open .bottom-safe {
+        bottom: calc(14.5rem + env(safe-area-inset-bottom));
+    }
+}
+
+@media (min-width: 640px) {
+    .consent-open .bottom-safe {
+        bottom: calc(7rem + env(safe-area-inset-bottom));
+    }
+}
+
+/* ==========================================================================
+   Calm motion
+   ========================================================================== */
+@keyframes soft-pulse {
+    0% {
+        box-shadow: 0 0 0 0 rgba(245, 126, 87, .45);
+    }
+
+    70% {
+        box-shadow: 0 0 0 14px rgba(245, 126, 87, 0);
+    }
+
+    100% {
+        box-shadow: 0 0 0 0 rgba(245, 126, 87, 0);
+    }
+}
+
+.entrance-pulse {
+    animation: soft-pulse 2s ease-out 2;
+}
+
+@keyframes voice-ring {
+    0% {
+        box-shadow: 0 0 0 0 rgba(6, 163, 218, .35);
+    }
+
+    100% {
+        box-shadow: 0 0 0 16px rgba(6, 163, 218, 0);
+    }
+}
+
+.voice-ring {
+    animation: voice-ring 2.4s ease-out infinite;
+}
+
+@keyframes slide-up-soft {
+    from {
+        opacity: 0;
+        transform: translateY(14px);
+    }
+
+    to {
+        opacity: 1;
+        transform: translateY(0);
+    }
+}
+
+.slide-up-soft {
+    animation: slide-up-soft .6s cubic-bezier(.22, .61, .36, 1) both;
+}
+
+@keyframes fade-in-soft {
+    from {
+        opacity: 0;
+    }
+
+    to {
+        opacity: 1;
+    }
+}
+
+.fade-in-soft {
+    animation: fade-in-soft .9s ease-out both;
+}
+
+/* ==========================================================================
+   Breathing circle, CSS keyframes only.
+   Expand 60px to 120px over 4s, hold 1s, contract over 4s. Total cycle 9s.
+   ========================================================================== */
+.breathing-stage {
+    position: relative;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    width: 140px;
+    height: 140px;
+    flex: 0 0 auto;
+}
+
+.breathing-circle {
+    width: 60px;
+    height: 60px;
+    border-radius: 9999px;
+    background: radial-gradient(circle at 35% 30%, rgba(238, 249, 255, .95), var(--primary));
+    box-shadow: 0 18px 40px -24px rgba(6, 163, 218, .8);
+    animation: breathe 9s ease-in-out infinite;
+}
+
+@keyframes breathe {
+    0% {
+        width: 60px;
+        height: 60px;
+        opacity: .85;
+    }
+
+    44.4% {
+        width: 120px;
+        height: 120px;
+        opacity: 1;
+    }
+
+    55.5% {
+        width: 120px;
+        height: 120px;
+        opacity: 1;
+    }
+
+    100% {
+        width: 60px;
+        height: 60px;
+        opacity: .85;
+    }
+}
+
+.breathe-motionless {
+    display: none;
+}
+
+.breathe-label-slot {
+    position: relative;
+    height: 28px;
+    width: 100%;
+    text-align: center;
+}
+
+.breathe-label-in,
+.breathe-label-out {
+    position: absolute;
+    inset: 0;
+    font-family: 'Jost', sans-serif;
+    font-weight: 600;
+    font-size: 1rem;
+    color: var(--dark);
+}
+
+.breathe-label-in {
+    animation: breathe-in-label 9s ease-in-out infinite;
+}
+
+.breathe-label-out {
+    animation: breathe-out-label 9s ease-in-out infinite;
+}
+
+@keyframes breathe-in-label {
+
+    0%,
+    40% {
+        opacity: 1;
+    }
+
+    46%,
+    100% {
+        opacity: 0;
+    }
+}
+
+@keyframes breathe-out-label {
+
+    0%,
+    52% {
+        opacity: 0;
+    }
+
+    58%,
+    94% {
+        opacity: 1;
+    }
+
+    100% {
+        opacity: 0;
+    }
+}
+
+@media (prefers-reduced-motion: reduce) {
+    .breathe-motion-only {
+        display: none !important;
+    }
+
+    .breathe-motionless {
+        display: block;
+    }
+
+
+    .breathing-circle,
+    .breathe-label-in,
+    .breathe-label-out,
+    .entrance-pulse,
+    .voice-ring,
+    .slide-up-soft,
+    .fade-in-soft {
+        animation: none !important;
+    }
+
+    .breathing-circle {
+        width: 96px;
+        height: 96px;
+    }
+
+    .breathe-label-out {
+        display: none;
+    }
+
+    .breathe-label-in {
+        opacity: 1;
+    }
+
+    *,
+    *::before,
+    *::after {
+        transition-duration: .01ms !important;
+    }
+}
